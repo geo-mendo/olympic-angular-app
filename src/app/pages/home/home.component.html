@@ -1,9 +1,26 @@
 <header>
-  <nav class="py-3 bg-primary white">
+  <nav class="py-3 bg-info">
     <h1 class="text-center text-light">Olympic games app</h1>
   </nav>
   <div class="w-100 my-5 d-flex justify-content-center">
     <img class="w-75" src="../../../assets/images/télésport.png" alt="image des jo" >
   </div>
 </header>
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<main class="d-flex  justify-content-center">
+  <div class="d-flex flex-column align-items-center justify-content-center w-75 shadow-lg rounded mb-5 p-5" >
+    <h2 class="mb-5 text-light rounded  bg-info p-3">Medals per Country</h2>
+    <div class="d-flex justify-content-center w-100">
+      <div class="border border-info border-2 py-2 px-4 mx-3 rounded shadow text-center ">
+        <h4 >Numbers of JOs</h4>
+        <p class="fs-2 fw-bold">{{ countries?.length }}</p>
+      </div>
+      <div class="border border-info border-2 py-2 px-4 mx-3 rounded shadow text-center ">
+        <h4>Numbers of Countries</h4>
+        <p class="fs-2 fw-bold">{{ countries?.length }}</p>
+      </div>
+    </div>
+    <app-home-pie-chart
+      [pieData]="countries | toPieDataFormat"
+    ></app-home-pie-chart>
+  </div>
+</main>

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, concatAll, filter, find, first, map, Observable, take} from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import {CountryItem} from "../types/dataType";
+import {logMessages} from "@angular-devkit/build-angular/src/builders/browser-esbuild/esbuild";
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +27,15 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  getOlympics(){
     return this.olympics$.asObservable();
+  }
+
+  getCountryByName(countryName:string): Observable<CountryItem> {
+    return this.getOlympics().pipe(
+      filter(Boolean),
+      concatAll(),
+      filter(( t:any) => t.country.toLowerCase() === countryName),
+    ) ;
   }
 }
